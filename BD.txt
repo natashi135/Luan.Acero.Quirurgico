@@ -1,0 +1,110 @@
+CREATE DATABASE IF NOT EXISTS empresa_repartos;
+USE empresa_repartos;
+
+-- =========================================
+-- TABLA: Empleado
+-- =========================================
+CREATE TABLE Empleado (
+    IDEmpleado INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20),
+    domicilio VARCHAR(200)
+);
+
+-- =========================================
+-- TABLA: Pago
+-- =========================================
+CREATE TABLE Pago (
+    IDPagos INT PRIMARY KEY,
+    tipo_de_pago VARCHAR(50) NOT NULL,
+    ofertas INT
+);
+
+-- =========================================
+-- TABLA: Cliente
+-- =========================================
+CREATE TABLE Cliente (
+    IDCliente INT PRIMARY KEY,
+    domicilio VARCHAR(200),
+    telefono VARCHAR(20)
+);
+
+-- =========================================
+-- TABLA: Producto
+-- =========================================
+CREATE TABLE Producto (
+    IDProducto INT PRIMARY KEY,
+    precio INT NOT NULL,
+    nombre VARCHAR(100) NOT NULL
+);
+
+-- =========================================
+-- TABLA: Proveedor
+-- =========================================
+CREATE TABLE Proveedor (
+    IDProveedor INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20)
+);
+
+-- =========================================
+-- TABLA: Encargo
+-- =========================================
+CREATE TABLE Encargo (
+    IDEncargo INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    telefono VARCHAR(20),
+    fecha DATE,
+    IDProducto INT,
+    IDCliente INT,
+    domicilio VARCHAR(200),
+
+    CONSTRAINT FK_Encargo_Producto
+        FOREIGN KEY (IDProducto)
+        REFERENCES Producto(IDProducto),
+
+    CONSTRAINT FK_Encargo_Cliente
+        FOREIGN KEY (IDCliente)
+        REFERENCES Cliente(IDCliente)
+);
+
+-- =========================================
+-- TABLA: Compra
+-- =========================================
+CREATE TABLE Compra (
+    IDCompra INT PRIMARY KEY,
+    precio INT NOT NULL,
+    IDProducto INT,
+    IDProveedor INT,
+
+    CONSTRAINT FK_Compra_Producto
+        FOREIGN KEY (IDProducto)
+        REFERENCES Producto(IDProducto),
+
+    CONSTRAINT FK_Compra_Proveedor
+        FOREIGN KEY (IDProveedor)
+        REFERENCES Proveedor(IDProveedor)
+);
+
+-- =========================================
+-- TABLA: Reparto
+-- =========================================
+CREATE TABLE Reparto (
+    IDRepartos INT PRIMARY KEY,
+    fecha DATE,
+    IDEncargo INT,
+    IDEmpleados INT,
+    IDPago INT,
+
+    CONSTRAINT FK_Reparto_Encargo
+        FOREIGN KEY (IDEncargo)
+        REFERENCES Encargo(IDEncargo),
+
+    CONSTRAINT FK_Reparto_Empleado
+        FOREIGN KEY (IDEmpleados)
+        REFERENCES Empleado(IDEmpleado),
+
+    CONSTRAINT FK_Reparto_Pago
+        FOREIGN KEY (IDPago)
+        REFERENCES Pago(IDPagos)
+);
