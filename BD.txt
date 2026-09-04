@@ -108,3 +108,10 @@ CREATE TABLE Reparto (
         FOREIGN KEY (IDPago)
         REFERENCES Pago(IDPagos)
 );
+
+-- =========================================
+-- USUARIO ADMINISTRADOR DE ACCESO A LA TIENDA
+-- =========================================
+-- Correo / Usuario: admin@luan.com
+-- Contraseña:       admin123
+-- Rol:              SuperAdmin / Administrador Luan

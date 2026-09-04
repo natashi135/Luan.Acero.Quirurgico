@@ -1,5 +1,5 @@
 :root {
-  --primary-50: #e5fffc;
+  --primary-50: #141414ff;
   --primary-100: #ccfff8;
   --primary-200: #99fff1;
   --primary-300: #66ffeb;
